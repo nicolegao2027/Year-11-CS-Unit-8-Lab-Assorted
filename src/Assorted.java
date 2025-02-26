@@ -278,42 +278,19 @@ public class Assorted {
      */
     public static List<String> wildWest(List<String> directions) {
         List<String> result = new ArrayList<>();
-        int n=0;
-        int s=0;
-        int w=0;
-        int e=0;
-        for (int i = 0; i < directions.size(); i++){
-            if(directions.get(i).equals("NORTH")){
-                n++;
+        for(int i = 0; i < directions.size(); i++) {
+            String direction = directions.get(i);
+            if(!result.isEmpty()) {
+                String lastDirection = result.get(result.size() - 1);
+                if((lastDirection.equals("NORTH") && direction.equals("SOUTH")) || (lastDirection.equals("SOUTH") && direction.equals("NORTH")) || (lastDirection.equals("EAST") && direction.equals("WEST")) || (lastDirection.equals("WEST") && direction.equals("EAST"))){
+                    result.remove(result.size() - 1);
+                }
+                else{
+                    result.add(direction);
+                }
             }
-            if(directions.get(i).equals("SOUTH")){
-                s++;
-            }
-            if(directions.get(i).equals("WEST")){
-                w++;
-            }
-            if(directions.get(i).equals("EAST")){
-                e++;
-            }
-        }
-        if(n>s){
-            for (int i = 0; i < n-s; i++) {
-                result.add("NORTH");
-            }
-        }
-        if(s>n){
-            for (int i = 0; i < s-n; i++) {
-                result.add("SOUTH");
-            }
-        }
-        if(w>e){
-            for (int i = 0; i < w-e; i++) {
-                result.add("WEST");
-            }
-        }
-        if(e>w){
-            for (int i = 0; i < e-w; i++) {
-                result.add("EAST");
+            else{
+                result.add(direction);
             }
         }
         return result;
